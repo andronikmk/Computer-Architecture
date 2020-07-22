@@ -1,0 +1,64 @@
+AND, OR, NOT, XOR
+
+Operation     Boolean Operator       Bitwise Operator           
+AND                 && (and)                &
+OR                  || (or)                 |
+NOT                 ! (not)                 ~ 
+XOR                 none                    ^
+
+if (True and True)
+if (True and False)
+
+if a or b:
+
+if (True && False) {}
+
+XOR     TRUE xor FALSE --> True
+        TRUE xor True  --> False
+        False xor False -> False
+
+  0b1010101
+& 0b1000101
+===========
+  0b1001101
+
+  0b0011100
+& 0b1010101
+===========
+  0b0010100
+
+  0b1010101
+| 0b1000101
+===========
+  0b1010101
+
+  0b0011100
+| 0b1010101
+===========
+  0b1011101
+
+  0b1010101
+^ 0b1000101
+===========
+  0b0010000
+
+  0b0011100
+^ 0b1010101
+===========
+  0b1001001
+
+Right Shifting
+  0b1010101
+  0b0101010  >> 1
+  0b0010101  >> 2
+  0b0001010  >> 3
+
+Left Shifting
+  0b101010   << 1
+
+memory = [
+    ADD,
+    register1,
+    register2,
+    HALT,
+]
