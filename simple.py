@@ -8,7 +8,21 @@ memory = [
     PRINT_NUM,
     42,
     HALT,
-] 
+]
+
+
+def load_memory(file_name):
+    pass
+
+if len(sys.argv) < 2:
+    pass
+
+
+# register aka memory
+registers = [0] * 8
+registers[7] = 0xA
+
+
 
 # Write a program to pull eah command out of memory and execute
 # We can loop over it!

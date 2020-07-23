@@ -1,25 +1,19 @@
 """
 Computer emulator
-
-Software that pretends to be hardward.
+Software that pretends to be hardware.
 
 Turing Complete - if can solve any problem for which there is an algorithms.
-"""
 
+Memory -- is like a big array.
+Index into the memory array == 'address' == 'pointer'
 """
-Memory -- like a big array
-
-"Index into the memory array" == "address" == "pointer"
-#memory = [0] * 256 # Ram
-"""
-
 import sys
 
 PRINT_ANDRONIK = 1
 HALT = 2
-SAVE_REG = 3            # SAVE_REG R1, 37 --> register[1] = 37
+SAVE_REG = 3
 PRINT_REG = 4
-ADD = 5           # PRINT_REG R1    --> print(register[1])
+ADD = 5
 
 memory = [
     SAVE_REG,
@@ -42,8 +36,8 @@ register = [0] * 8 # 8 Registers, like varibales, R0, R1, R2,...R7
 pc = 0 # Program Counter, index of the current instructions
 running = True
 while running:
+    # instruction register
     ir = memory[pc]
-    
     if ir == PRINT_ANDRONIK:
         print("Andronik!")
         pc += 1
@@ -74,3 +68,9 @@ while running:
         sys.exit(1)
 
 
+
+# while loop goes into the run() method
+# store all of the instructions as variables.
+
+
+# implement for each day for sprint challenge.
