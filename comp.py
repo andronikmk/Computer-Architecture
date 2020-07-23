@@ -9,35 +9,57 @@ Index into the memory array == 'address' == 'pointer'
 """
 import sys
 
+program_filename = sys.argv[1]
+# print(program_filename)
+# sys.exit()
+
 PRINT_ANDRONIK = 1
 HALT = 2
 SAVE_REG = 3
 PRINT_REG = 4
 ADD = 5
 
-memory = [
-    SAVE_REG,
-    1,
-    99,
-    SAVE_REG,
-    2,
-    11,
-    ADD,
-    1,
-    2,
-    PRINT_REG,
-    1,
-    PRINT_ANDRONIK,
-    HALT
-]
+# memory = [
+#     SAVE_REG,
+#     1,
+#     99,
+#     SAVE_REG,
+#     2,
+#     11,
+#     ADD,
+#     1,
+#     2,
+#     PRINT_REG,
+#     1,
+#     PRINT_ANDRONIK,
+#     HALT
+# ]
 
+memory = [0] * 256 # my memory
 register = [0] * 8 # 8 Registers, like varibales, R0, R1, R2,...R7
+
+# load program into memory
+# from beej lecture
+address = 0
+with open(program_filename) as f:
+    for line in f:
+        line = line.split('#')
+        line = line[0].strip()
+        if line == '':
+            continue
+        
+        memory[address] = int(line)
+        address += 1
+
+# sys.exit()
+
 
 pc = 0 # Program Counter, index of the current instructions
 running = True
 while running:
     # instruction register
     ir = memory[pc]
+
     if ir == PRINT_ANDRONIK:
         print("Andronik!")
         pc += 1
@@ -56,9 +78,7 @@ while running:
 
     elif ir == ADD:
         req_num1 = memory[pc + 1]
-        print("Register 1: ", req_num1)
         req_num2 = memory[pc + 2]
-        print("Register 2",req_num2)
         register[req_num1] += register[req_num2]
         pc += 3
     
