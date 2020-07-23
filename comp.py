@@ -47,15 +47,18 @@ while running:
         value = memory[pc + 2]
         register[reg_num] = value
         pc += 3
-    
+
     elif ir == PRINT_REG:
         reg_num = memory[pc + 1]
+        print("Reg num", reg_num)
         print(register[reg_num])
         pc += 2
 
     elif ir == ADD:
         req_num1 = memory[pc + 1]
+        print("Register 1: ", req_num1)
         req_num2 = memory[pc + 2]
+        print("Register 2",req_num2)
         register[req_num1] += register[req_num2]
         pc += 3
     
@@ -66,11 +69,3 @@ while running:
     else:
         print(f"Unknown instructions {ir} at address")
         sys.exit(1)
-
-
-
-# while loop goes into the run() method
-# store all of the instructions as variables.
-
-
-# implement for each day for sprint challenge.
