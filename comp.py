@@ -19,6 +19,9 @@ SAVE_REG = 3
 PRINT_REG = 4
 ADD = 5
 
+# stack pointer --> magic value or has two meanings
+SP = 7
+
 # memory = [
 #     SAVE_REG,
 #     1,
@@ -50,42 +53,77 @@ with open(program_filename) as f:
         
         memory[address] = int(line)
         address += 1
-
 # sys.exit()
-
-
 pc = 0 # Program Counter, index of the current instructions
+fl = 0
+
+register[7] = 0xff
 running = True
+
 while running:
     # instruction register
     ir = memory[pc]
 
-    if ir == PRINT_ANDRONIK:
+    # print andronik
+    if ir == 1:
         print("Andronik!")
         pc += 1
     
-    elif ir == SAVE_REG:
+    # halt
+    elif ir == 2:
+        running = False
+    
+    elif ir == 3:
         reg_num = memory[pc + 1]
         value = memory[pc + 2]
         register[reg_num] = value
         pc += 3
 
-    elif ir == PRINT_REG:
+    # print register
+    elif ir == 4:
         reg_num = memory[pc + 1]
         print("Reg num", reg_num)
         print(register[reg_num])
         pc += 2
 
-    elif ir == ADD:
-        req_num1 = memory[pc + 1]
-        req_num2 = memory[pc + 2]
-        register[req_num1] += register[req_num2]
-        pc += 3
+    # push
+    elif ir == 5:
+        # decrement the stack pointer
+        register[SP] -= 1
+        # copy the value to the given
+        reg_num = memory[pc + 1]
+        # the value we want to push onto the stack
+        value = register[reg_num]
+        # push to stack layer that the address points at
+        # store in memory
+        address_to_push_to = register[7] 
+        memory[address_to_push_to] = value
+        pc += 2
+
+    # pop
+    elif ir == 6:
+        # get value from RAM
+        address_to_pop_from = register[SP]
+        value = memory[address_to_pop_from]
+
+        # store in the given register
+        req_num = memory[pc + 1]
+        register[req_num] = value
+
+        # increament sp
+        register[SP] += 1
+
+        pc += 2
+
+
+    # elif ir == ADD:
+    #     req_num1 = memory[pc + 1]
+    #     req_num2 = memory[pc + 2]
+    #     register[req_num1] += register[req_num2]
+    #     pc += 3
     
-    elif ir == HALT:
-        running = False
-        pc += 1
     
     else:
         print(f"Unknown instructions {ir} at address")
-        sys.exit(1)
+        running = False
+        #sys.exit(1)
