@@ -19,6 +19,9 @@ SAVE_REG = 3
 PRINT_REG = 4
 ADD = 5
 
+CALL = 7
+RET = 8
+
 # stack pointer --> magic value or has two meanings
 SP = 7
 
@@ -123,7 +126,33 @@ while running:
     #     pc += 3
     
     
+    elif ir == CALL: # Call
+        # get address in the next instruction
+        return_addr = pc + 2
+        # push onto stack
+        register[SP] -= 1
+        address_to_push_to = register[SP]
+        memory[address_to_push_to] = return_addr
+        # set the PC to subroutine address
+        reg_num = memory[pc + 1]
+        subroutine_addr = register[reg_num]
+
+        pc = subroutine_addr   
+
+    elif ir == RET:
+        # get the return address from the top of the stack
+        address_to_pop_from = register[SP]
+        return_addr = memory[address_to_pop_from]
+        register[SP] += 1
+
+        # set the PC to the return address.
+        pc = return_addr
+    
     else:
         print(f"Unknown instructions {ir} at address")
-        running = False
-        #sys.exit(1)
+        sys.exit(1)
+
+
+# register[SP] = 0xf4
+
+####### CALL - calls the subroutine ########################

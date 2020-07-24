@@ -1,0 +1,13 @@
+Subroutine
+==========
+def fun2():
+    print('hi')
+
+def fun1():
+    fun2()
+    print('Hello) # return_point_1
+
+fun1()
+print('bye) # return_point_2 <--PC
+
+Call stack:
