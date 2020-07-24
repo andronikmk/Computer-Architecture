@@ -60,7 +60,7 @@ with open(program_filename) as f:
 pc = 0 # Program Counter, index of the current instructions
 fl = 0
 
-register[7] = 0xff
+register[7] = 0xff # Anding an integer with 0xFF leaves only the least significant byte.
 running = True
 
 while running:

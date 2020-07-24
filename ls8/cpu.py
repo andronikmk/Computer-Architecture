@@ -14,7 +14,7 @@ class CPU:
         self.register = [0] * 8     # register
         self.ram = [0] * 256        # memory
         self.fl =  0b00000000       # 0 flags binary switch value
-        self.register[7] = 0xF4
+        self.register[7] = 0xF4     # 
         self.sp = self.register[7]  # stack pointer
 
     def load(self):
@@ -43,20 +43,25 @@ class CPU:
         # ADD
         if op == "ADD":
             self.register[reg_a] += self.register[reg_b]
+        # SUB
         elif op == "SUB":
             self.register[reg_a] -= self.register[reg_b]
+        # MULTIPLICATION
         elif op == "MUL":
             self.register[reg_a] *= self.register[reg_b]
         # Compare the values in two registers.
         elif op == "CMP":
             # If they are equal, set the Equal `E` flag to 1, otherwise set it to 0.
             if self.register[reg_a] == self.register[reg_b]:
+                # EQ == 0b00000001
                 self.fl = 0b00000001
             # If registerA is less than registerB, set the Less-than `L` flag to 1, otherwise set it to 0.
             elif self.register[reg_a] > self.register[reg_b]:
+                # GT == 0b00000010
                 self.fl = 0b10000010
-            # f registerA is greater than registerB, set the Greater-than `G` flag to 1, otherwise set it to 0.
-            else:
+            #  `L` Less-than: during a `CMP`, set to 1 if registerA is less than registerB,
+            elif self.register[reg_a] < self.register[reg_b]:
+                # LT = 0b00000100
                 self.fl = 0b00000100
         else:
             raise Exception("Unsupported ALU operation")
