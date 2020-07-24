@@ -129,8 +129,11 @@ while running:
     elif ir == CALL: # Call
         # get address in the next instruction
         return_addr = pc + 2
+        
         # push onto stack
         register[SP] -= 1
+        
+        
         address_to_push_to = register[SP]
         memory[address_to_push_to] = return_addr
         # set the PC to subroutine address
