@@ -207,9 +207,9 @@ class CPU:
                 return_addr = self.pc + 2
                 
                 # push onto stack
-                self.register[operand_a] -= 1
+                self.register[7] -= 1
                 
-                address_to_push_to = self.register[operand_a]
+                address_to_push_to = self.register[7]
                 self.ram[address_to_push_to] = return_addr
                 # set the PC to subroutine address
                 reg_num = self.ram[self.pc + 1]
@@ -219,9 +219,9 @@ class CPU:
             # RET
             elif ir == 0b00010001:
                 # get the return address from the top of the stack
-                address_to_pop_from = self.register[operand_a]
+                address_to_pop_from = self.register[7]
                 return_addr = self.ram[address_to_pop_from]
-                self.register[operand_a] += 1
+                self.register[7] += 1
                 # set the PC to the return address.
                 self.pc = return_addr
 
